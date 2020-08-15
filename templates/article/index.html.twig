@@ -5,7 +5,7 @@
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .uuid {background-color: yellow}
+    .highlight {background-color: yellow}
 </style>
 
 <div class="example-wrapper">
@@ -16,7 +16,8 @@
             {% for article in articles  %}
                 <li>
                     <h2>{{ article.title }}</h2>
-                    <p>This article as the unique id: <span class="uuid">{{ article.uuid }}</span></p>
+                    <p>This article as the unique id: <span class="highlight">{{ article.uuid }}</span></p>
+                    <p>It was created on : <span class="highlight">{{ article.createdAt|date }}</span></p>
                     <p>{{ article.body }}</p>
                 </li>
             {% endfor %}
