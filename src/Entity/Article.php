@@ -5,20 +5,23 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Contract\Entity\SluggableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface;
 use Knp\DoctrineBehaviors\Model\Sluggable\SluggableTrait;
+use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Uuidable\UuidableTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-class Article implements UuidableInterface, TimestampableInterface, SluggableInterface
+class Article implements UuidableInterface, TimestampableInterface, SluggableInterface, SoftDeletableInterface
 {
     use UuidableTrait;
     use TimestampableTrait;
     use SluggableTrait;
+    use SoftDeletableTrait;
 
     /**
      * @ORM\Id()
