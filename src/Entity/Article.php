@@ -4,18 +4,21 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\SluggableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface;
+use Knp\DoctrineBehaviors\Model\Sluggable\SluggableTrait;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
 use Knp\DoctrineBehaviors\Model\Uuidable\UuidableTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-class Article implements UuidableInterface, TimestampableInterface
+class Article implements UuidableInterface, TimestampableInterface, SluggableInterface
 {
     use UuidableTrait;
     use TimestampableTrait;
+    use SluggableTrait;
 
     /**
      * @ORM\Id()
@@ -61,5 +64,10 @@ class Article implements UuidableInterface, TimestampableInterface
         $this->body = $body;
 
         return $this;
+    }
+
+    public function getSluggableFields(): array
+    {
+        return ['title'];
     }
 }

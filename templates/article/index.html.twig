@@ -16,8 +16,9 @@
             {% for article in articles  %}
                 <li>
                     <h2>{{ article.title }}</h2>
-                    <p>This article as the unique id: <span class="highlight">{{ article.uuid }}</span></p>
-                    <p>It was created on : <span class="highlight">{{ article.createdAt|date }}</span></p>
+                    <p>Unique id: <span class="highlight">{{ article.uuid }}</span></p>
+                    <p>Created At: <span class="highlight">{{ article.createdAt|date }}</span></p>
+                    <p>Slug: <span class="highlight">{{ article.slug }}</span></p>
                     <p>{{ article.body }}</p>
                 </li>
             {% endfor %}
