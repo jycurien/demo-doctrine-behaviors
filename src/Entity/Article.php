@@ -4,12 +4,16 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface;
+use Knp\DoctrineBehaviors\Model\Uuidable\UuidableTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-class Article
+class Article implements UuidableInterface
 {
+    use UuidableTrait;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
