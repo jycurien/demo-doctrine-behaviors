@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\ArticleTranslation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +19,20 @@ class ArticleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Article::class);
+    }
+
+    public function findOneByTranslatedSlug($slug)
+    {
+        return $this->createQueryBuilder('a')
+            ->innerJoin(ArticleTranslation::class, 'at', Join::WITH, 'a.id = at.translatable')
+            ->andWhere('at.slug = :slug')
+            ->setParameters([
+                'slug' => $slug,
+
+            ])
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
     }
 
     // /**

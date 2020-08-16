@@ -4,24 +4,25 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Knp\DoctrineBehaviors\Contract\Entity\SluggableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\SoftDeletableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\TimestampableInterface;
+use Knp\DoctrineBehaviors\Contract\Entity\TranslatableInterface;
 use Knp\DoctrineBehaviors\Contract\Entity\UuidableInterface;
-use Knp\DoctrineBehaviors\Model\Sluggable\SluggableTrait;
 use Knp\DoctrineBehaviors\Model\SoftDeletable\SoftDeletableTrait;
 use Knp\DoctrineBehaviors\Model\Timestampable\TimestampableTrait;
+use Knp\DoctrineBehaviors\Model\Translatable\TranslatableTrait;
 use Knp\DoctrineBehaviors\Model\Uuidable\UuidableTrait;
 
 /**
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  */
-class Article implements UuidableInterface, TimestampableInterface, SluggableInterface, SoftDeletableInterface
+class Article implements UuidableInterface, TimestampableInterface,
+    SoftDeletableInterface, TranslatableInterface
 {
     use UuidableTrait;
     use TimestampableTrait;
-    use SluggableTrait;
     use SoftDeletableTrait;
+    use TranslatableTrait;
 
     /**
      * @ORM\Id()
@@ -30,47 +31,23 @@ class Article implements UuidableInterface, TimestampableInterface, SluggableInt
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
+    public function __call($method, $arguments)
+    {
+        return $this->proxyCurrentLocaleTranslation($method, $arguments);
+    }
 
-    /**
-     * @ORM\Column(type="text")
-     */
-    private $body;
+//    public function getTitle()
+//    {
+//        return $this->translate(null, true)->getTitle();
+//    }
+//
+//    public function getBody()
+//    {
+//        return $this->translate(null, true)->getBody();
+//    }
 
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-
-    public function setBody(string $body): self
-    {
-        $this->body = $body;
-
-        return $this;
-    }
-
-    public function getSluggableFields(): array
-    {
-        return ['title'];
     }
 }

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+    {% if article %}
+
+            <article>
+                <h1>{{ article.title }}</h1>
+                <p>Unique id: <span class="highlight">{{ article.uuid }}</span></p>
+                <p>Created At: <span class="highlight">{{ article.createdAt|date }}</span></p>
+                <p>Slug: <span class="highlight">{{ article.slug }}</span></p>
+                <p>{{ article.body }}</p>
+            </article>
+            {% if supported_locales|length > 1 %}
+                <hr>
+                <div>
+                    <h2>Available translations in other languages</h2>
+
+                        {% for locale in supported_locales  %}
+                            {% if locale != app.request.locale %}
+                                <article>
+                                    <h3>{{ article.translate(locale).title }}</h3>
+                                    <p>Locale: <span class="highlight">{{ locale }}</span></p>
+                                    <p>Slug: <span class="highlight">{{ article.translate(locale).slug }}</span></p>
+                                    <p>{{ article.translate(locale).body }}</p>
+                                </article>
+                            {% endif %}
+                        {% endfor %}
+                </div>
+            {% endif %}
+
+    {% endif %}
+
+{% endblock %}
