@@ -3,28 +3,25 @@
 {% block title %}Articles{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .highlight {background-color: yellow}
-</style>
 
-<div class="example-wrapper">
     <h1>Articles</h1>
 
     {%  if articles %}
         <ul>
             {% for article in articles  %}
                 <li>
-                    <h2>{{ article.title }}</h2>
-                    <p>Unique id: <span class="highlight">{{ article.uuid }}</span></p>
-                    <p>Created At: <span class="highlight">{{ article.createdAt|date }}</span></p>
-                    <p>Slug: <span class="highlight">{{ article.slug }}</span></p>
-                    <p>{{ article.body }}</p>
+                    <article>
+                        <h2><a href="{{ path('article_show', {'_locale': app.request.locale, 'slug': article.slug}) }}">{{ article.title }}</a></h2>
+                        <p>Unique id: <span class="highlight">{{ article.uuid }}</span></p>
+                        <p>Created At: <span class="highlight">{{ article.createdAt|date }}</span></p>
+                        <p>Slug: <span class="highlight">{{ article.slug }}</span></p>
+                        <p>{{ article.body }}</p>
+                    </article>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No article yet...</p>
     {% endif %}
-</div>
+
 {% endblock %}

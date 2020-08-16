@@ -1,12 +1,41 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+        {% block stylesheets %}
+            <style>
+                .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+                .highlight { background-color: yellow; }
+                nav ul { display: flex; list-style: none; margin: 0; padding:0; justify-content: space-between }
+                nav ul li a { padding: 8px 16px;}
+            </style>
+        {% endblock %}
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <div class="example-wrapper">
+            <header>
+                <nav>
+                    <ul>
+                        <li><a href="{{ path('article_index', {'_locale': app.request.locale}) }}">All Articles</a></li>
+                        {% if supported_locales|length > 1 %}
+                        <li>
+                            <ul>
+                                {% for locale in supported_locales %}
+                                    <li><a href="{{ path(route, params|merge({ _locale: locale })) }}">{{ locale }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </header>
+            {% block body %}{% endblock %}
+        </div>
         {% block javascripts %}{% endblock %}
     </body>
 </html>
