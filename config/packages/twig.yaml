@@ -1,4 +1,4 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
     globals:
-        supported_locales: ['en', 'es', 'fr']
+        supported_locales: '%app.supported_locales_array%'

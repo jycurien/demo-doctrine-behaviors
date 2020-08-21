@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        label, input, textarea {
+            display: block;
+            width: 100%;
+        }
+        form > label {
+            margin-top: 10px;
+        }
+        input[type=submit] {
+            margin-top: 20px;
+            padding: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block title %}Articles{% endblock %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+    {% for translation in form.translations  %}
+        {{ form_label(translation) }}
+        {{ form_row(translation.title) }}
+        {{ form_row(translation.body) }}
+        <hr>
+    {% endfor %}
+    <input type="submit" value="Submit">
+    {{ form_end(form) }}
+
+
+{#    <script>#}
+{#        const collectionHolder = document.querySelector('.translations');#}
+{#        const addTranslationBtn = document.querySelector('.add_translation');#}
+
+{#        function addTranslationForm(collectionHolder, locale) {#}
+{#            // Get the data-prototype explained earlier#}
+{#            const prototype = collectionHolder.dataset.prototype;#}
+
+{#            // get the new index#}
+{#            const index = parseInt(collectionHolder.dataset.index);#}
+
+{#            let newForm = prototype;#}
+{#            // You need this only if you didn't set 'label' => false in your tags field in TaskType#}
+{#            // Replace '__name__label__' in the prototype's HTML to#}
+{#            // instead be a number based on how many items we have#}
+{#            // newForm = newForm.replace(/__name__label__/g, index);#}
+
+{#            // Replace '__name__' in the prototype's HTML to#}
+{#            // instead be a number based on how many items we have#}
+{#            newForm = newForm.replace(/__name__/g, index);#}
+
+{#            // increase the index with one for the next item#}
+{#            collectionHolder.dataset.index = index + 1;#}
+
+{#            // Display the form in the page in an li, before the "Add a tag" link li#}
+{#            const newFormDiv = document.createElement('div');#}
+{#            newFormDiv.innerHTML = newForm;#}
+{#            newFormDiv.querySelector('#article_translations_'+index+'_locale').value = locale;#}
+{#            collectionHolder.appendChild(newFormDiv);#}
+{#        }#}
+
+{#        addTranslationBtn.addEventListener('click', e => {#}
+{#            e.preventDefault();#}
+{#            addTranslationForm(collectionHolder, 'en');#}
+{#        });#}
+
+{#    </script>#}
+{% endblock %}

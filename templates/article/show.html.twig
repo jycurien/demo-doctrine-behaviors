@@ -15,20 +15,22 @@
             </article>
             {% if supported_locales|length > 1 %}
                 <hr>
+                {% if article.translations | length > 1 %}
                 <div>
                     <h2>Available translations in other languages</h2>
 
-                        {% for locale in supported_locales  %}
-                            {% if locale != app.request.locale %}
+                        {% for translation in article.translations %}
+                            {% if translation.locale != app.request.locale %}
                                 <article>
-                                    <h3>{{ article.translate(locale).title }}</h3>
-                                    <p>Locale: <span class="highlight">{{ locale }}</span></p>
-                                    <p>Slug: <span class="highlight">{{ article.translate(locale).slug }}</span></p>
-                                    <p>{{ article.translate(locale).body }}</p>
+                                    <h3>{{ translation.title }}</h3>
+                                    <p>Locale: <span class="highlight">{{ translation.locale }}</span></p>
+                                    <p>Slug: <span class="highlight">{{ translation.slug }}</span></p>
+                                    <p>{{ translation.body }}</p>
                                 </article>
                             {% endif %}
                         {% endfor %}
                 </div>
+                {% endif %}
             {% endif %}
 
     {% endif %}
