@@ -9,7 +9,19 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <style>
-                .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+                html {
+                    box-sizing: border-box;
+                    height: 100%;
+                    font-size: 100%;
+                }
+                *, *:before, *:after {
+                    box-sizing: inherit;
+                }
+                body {
+                    position: relative;
+                    height: 100%;
+                }
+                .example-wrapper { margin: 0 auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
                 .highlight { background-color: yellow; }
                 nav ul { display: flex; list-style: none; margin: 0; padding:0; justify-content: space-between }
                 nav ul li a { padding: 8px 16px;}
