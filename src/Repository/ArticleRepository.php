@@ -24,7 +24,7 @@ class ArticleRepository extends ServiceEntityRepository
     public function findOneByTranslatedSlug($slug)
     {
         return $this->createQueryBuilder('a')
-            ->innerJoin(ArticleTranslation::class, 'at', Join::WITH, 'a.id = at.translatable')
+            ->innerJoin('a.translations', 'at')
             ->andWhere('at.slug = :slug')
             ->setParameters([
                 'slug' => $slug,
